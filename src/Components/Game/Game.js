@@ -11,7 +11,7 @@ class Game extends React.Component {
   }
 
   renderSeat(i) {
-    return <Seat number={i}/>
+    return <Seat number={i} />
   }
 
   render() {

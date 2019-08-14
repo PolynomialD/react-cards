@@ -58,8 +58,8 @@ class Player extends React.Component {
             <label>Name: </label>
             <input type="text" onChange={this.handleNameChange}/>
             <input type="submit" value="Save" />
-          </form> }
-        
+          </form> 
+        }
         <p>Chips: {this.state.chips}</p>
         <input type="number" value={this.state.bet} onChange={this.handleBetChange} />
         <button onClick={this.placeBet}>Bet</button>

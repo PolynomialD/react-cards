@@ -31,14 +31,22 @@ class Seat extends React.Component {
     }
   }
 
+  setNumber(num) {
+    this.setState({
+      number: num
+    })
+  }
+
   render() {
     return <div className="Seat">
       <h6>SEAT {this.props.number}</h6>
+      { this.state.status === null ?
       <form id={`form ${this.state.number}`} onSubmit={this.receiveBet}>
-            <label>Bet: </label>
-            <input type="number" onChange={this.handleBetChange} />
-            <input type="submit" value="Submit" />
-          </form>
+        <label>Bet: </label>
+        <input type="number" onChange={this.handleBetChange} />
+        <input type="submit" value="Submit" />
+      </form> : <h6>BET {this.state.bets}</h6>
+      }
     </div>
   }
 }
