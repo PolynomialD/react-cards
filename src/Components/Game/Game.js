@@ -1,6 +1,7 @@
 import React from 'react'
 import Player from '../Player/Player'
 import Seat from '../Seat/Seat'
+import Deck from '../Deck/Deck'
 
 class Game extends React.Component {
   constructor (props) {
@@ -17,6 +18,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
+        <Deck />
         {this.renderSeat(6)}
         {this.renderSeat(5)}
         {this.renderSeat(4)}

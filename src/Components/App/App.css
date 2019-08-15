@@ -29,6 +29,11 @@
   margin: 20px;
 }
 
+.card {
+  height: 50px;
+  width: 36px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -7,7 +7,7 @@ class Seat extends React.Component {
       number: null,
       hands: [],
       bets: 0,
-      status: null
+      status: 'empty'
     }
     this.receiveBet = this.receiveBet.bind(this)
     this.handleBetChange = this.handleBetChange.bind(this)
@@ -40,7 +40,7 @@ class Seat extends React.Component {
   render() {
     return <div className="Seat">
       <h6>SEAT {this.props.number}</h6>
-      { this.state.status === null ?
+      { this.state.status === 'empty' ?
       <form id={`form ${this.state.number}`} onSubmit={this.receiveBet}>
         <label>Bet: </label>
         <input type="number" onChange={this.handleBetChange} />
