@@ -6,10 +6,13 @@ class Deck extends React.Component {
     super()
     this.state = {
       cards: this.buildCards(),
-      image: require("../../assets/images/card_deck.png")
+      image: require("../../assets/images/card_deck.png"),
+      dealtCards: [],
+      cardBack: require('../../assets/images/card_backs/card_back_red.png')
     }
-    this.recursiveShuffle = this.recursiveShuffle.bind(this)
     this.shuffle = this.shuffle.bind(this)
+    this.recursiveShuffle = this.recursiveShuffle.bind(this)
+    this.dealCard = this.dealCard.bind(this)
   }
 
   buildCards () {
@@ -30,12 +33,18 @@ class Deck extends React.Component {
     return [].concat.apply([], cards)
   }
 
-  shuffle () {
-    const shuffled = this.recursiveShuffle(this.state.cards)
+  dealCard () {
     this.setState({
-      cards: shuffled
+      dealtCards: [this.state.cards[0]].concat(this.state.dealtCards)
     })
-    
+    console.log('dealtCards', this.state.dealtCards)
+    return this.state.cards.shift()
+  }
+
+  shuffle () {
+    this.setState({
+      cards: this.recursiveShuffle(this.state.cards)
+    })
   }
 
   recursiveShuffle (deck, i = 1, limit = 200) {
@@ -48,11 +57,14 @@ class Deck extends React.Component {
   }
 
   render() {
+    const dealtCardSrc = (this.state.dealtCards.length === 0) ? this.state.cardBack : this.state.dealtCards[0].image
     return <div>
-      <button onClick={this.shuffle}></button>
-      {this.state.cards[0].icon}
+            <button onClick={this.shuffle}></button>
+            <button onClick={this.dealCard}></button>
             <img className="Deck" src={this.state.image}></img>
             <img className="Card" src={this.state.cards[0].image}></img>
+            {this.state.cards[0].icon}
+            <img className="Card" src={dealtCardSrc}></img>
           </div>
   }
 }
