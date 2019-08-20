@@ -1,6 +1,6 @@
 import React from 'react'
 import Seat from '../Seat/Seat.js'
-import { Row, Col, Container, Button, Form } from 'react-bootstrap'
+import { Row, Col, Container, Button, Form, Navbar, Image } from 'react-bootstrap'
 
 class Player extends React.Component {
   constructor () {
@@ -92,9 +92,15 @@ class Player extends React.Component {
         <Row className="mt-5">
           { this.state.seats }
         </Row>
+        <Navbar fixed="bottom">
         <Container className="border border-primary rounded p-3 mt-5">
           <Row>
-            <Col >
+            <Col>
+              <Button variant="outline-success" onClick={this.addSeat}>Add Seat</Button>
+            </Col>
+          </Row>
+          <Row>
+          <Col>
               { this.state.nameSaved ? <h5>{ this.state.name }</h5> :
                 <Form onSubmit={this.handleSubmit}>
                   {/* <Form.Label>Name: </Form.Label> */}
@@ -102,19 +108,24 @@ class Player extends React.Component {
                   <Form.Control type="submit" value="Set Name" className=" btn btn-success" />
                 </Form>
               }
-              <h5>Chips: {this.state.chips}</h5>
             </Col>
           </Row>
-          <Row className="mt-2">
+          <Row>
             <Col>
-              <Button variant="outline-success" onClick={this.addSeat}>Add Seat</Button>
+              <Image height="100px" src={require("../../../src/assets/images/avatars/player_avatar.png")} roundedCircle></Image>
             </Col>
+          </Row>
+          <Row>
+              <h5>Chips: {this.state.chips}</h5>
+          </Row>
+          <Row>
             <Col>
               <Form.Control type="number" onChange={this.handleDeposit} />
               <Button type="button" onClick={this.confirmDeposit}>Deposit</Button>
             </Col>
           </Row>
         </Container>
+        </Navbar>
       </Container>
     )
   }

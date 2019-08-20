@@ -24,7 +24,8 @@ class Seat extends React.Component {
   receiveBet(event) {
     event.preventDefault()
     this.setState({
-      status: 'bet received'
+      status: 'bet received',
+      chips: this.state.chips - this.state.bet
     })
   }
 
@@ -39,7 +40,9 @@ class Seat extends React.Component {
   handleBetChange (event) {
     const proposedBet = event.target.value
     if (proposedBet > 0) {
-      this.setState({bets: proposedBet})
+      this.setState({
+        bet: proposedBet
+      })
     }
   }
 
@@ -58,7 +61,6 @@ class Seat extends React.Component {
 
   render() {
     return <Col md="2" className="Seat">
-      
       { this.state.status === 'no-chips' ?
           <>
             Add Chips
