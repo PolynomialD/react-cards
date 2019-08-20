@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Form } from 'react-bootstrap'
+import { Col, Form, Button } from 'react-bootstrap'
 
 class Seat extends React.Component {
   constructor () {
@@ -15,6 +15,7 @@ class Seat extends React.Component {
     this.receiveDeposit = this.receiveDeposit.bind(this)
     this.handleBetChange = this.handleBetChange.bind(this)
     this.handleChipDeposit = this.handleChipDeposit.bind(this)
+    this.sendStatus = this.sendStatus.bind(this)
   }
 
   receiveHand(hand) {
@@ -53,14 +54,13 @@ class Seat extends React.Component {
     }
   }
 
-  setNumber(num) {
-    this.setState({
-      number: num
-    })
+  sendStatus() {
+    this.props.getStatus(this.state.status)
   }
 
   render() {
     return <Col md="2" className="Seat">
+      <Button variant="outline-success" onClick={this.sendStatus}>Get Status</Button>
       { this.state.status === 'no-chips' ?
           <>
             Add Chips
