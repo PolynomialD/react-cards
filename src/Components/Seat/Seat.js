@@ -25,7 +25,7 @@ class Seat extends React.Component {
   receiveBet(event) {
     event.preventDefault()
     this.setState({
-      status: 'bet received',
+      status: 'bet-received',
       chips: this.state.chips - this.state.bet
     })
   }
@@ -34,7 +34,7 @@ class Seat extends React.Component {
     event.preventDefault()
     this.props.setter(this.props.getter() - this.state.chips)
     this.setState({
-      status: 'empty'
+      status: 'betting'
     })
   }
 
@@ -55,29 +55,43 @@ class Seat extends React.Component {
   }
 
   sendStatus() {
-    this.props.getStatus(this.state.status)
+    this.setState({
+      status: 'bet-confirmed'
+    })
+    this.props.sendStatus('bet-confirmed')
   }
 
   render() {
     return <Col md="2" className="Seat">
-      <Button variant="outline-success" onClick={this.sendStatus}>Get Status</Button>
       { this.state.status === 'no-chips' ?
-          <>
-            Add Chips
-            <Form onSubmit={this.receiveDeposit}>
-              <Form.Control type="number" step="500" onChange={this.handleChipDeposit} />
-              <Form.Control className="btn btn-warning" type="submit" value="Deposit" />
-            </Form>
-          </>
-        : this.state.status === 'empty' ?
+        <>
+          Add Chips
+          <Form onSubmit={this.receiveDeposit}>
+            <Form.Control type="number" step="500" onChange={this.handleChipDeposit} />
+            <Form.Control className="btn btn-warning" type="submit" value="Deposit" />
+          </Form>
+        </>
+        : this.state.status === 'betting' ?
           <Form onSubmit={this.receiveBet}>
             <Form.Control type="number" onChange={this.handleBetChange} />
             <Form.Control className="btn btn-success" type="submit" value="Bet" />
             <label>Bet: </label>
           </Form> 
-          : <>
+        : this.state.status === 'bet-received' ?
+          <>
+            <Button variant="outline-success" onClick={this.sendStatus}>Confirm Bet</Button>
+            <h6>BET {this.state.bet}</h6>
+          </> 
+        : this.props.playerStatus === 'bets-complete' ?
+          <>
+          yoyoyo
+          </>
+        : this.state.status === 'bet-confirmed' ?
+          <>
+            Confirmed
             <h6>BET {this.state.bet}</h6>
           </>
+        : <></>
       }
       <h6>SEAT {this.props.number}</h6>
       <h6>CHIPS {this.state.chips}</h6>

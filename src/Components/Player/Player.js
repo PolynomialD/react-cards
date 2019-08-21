@@ -11,7 +11,7 @@ class Player extends React.Component {
       chips: 5000,
       proposedDeposit: 50,
       seats: [],
-      bets: [],
+      betCount: 0,
       status: null
     }
 
@@ -19,7 +19,6 @@ class Player extends React.Component {
     this.handleDeposit = this.handleDeposit.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
-    this.renderSeat = this.renderSeat.bind(this)
     this.addSeat = this.addSeat.bind(this)
     this.getChips = this.getChips.bind(this)
     this.setChips = this.setChips.bind(this)
@@ -81,30 +80,35 @@ class Player extends React.Component {
     const seatNumber = this.state.seats.length + 1
     if(seatNumber <= 6) {
       this.setState({
-        seats: this.state.seats.concat([<Seat getter={this.getChips} setter={this.setChips} number={seatNumber} getStatus={this.getSeatStatus} />])
+        seats: this.state.seats.concat([<Seat
+          getter={this.getChips}
+          setter={this.setChips}
+          number={seatNumber}
+          sendStatus={this.getSeatStatus}
+          playerStatus={this.state.status}
+        />]),
+        status: 'betting'
       })
     }
-  }
-
-  renderSeat(i) {
-    return this.state.seats[i]
   }
 
   checkBetStatus() {
-    if(this.state.bets.length === this.state.seats.length) {
-      this.setState({
-        status: 'bets complete'
-      })
-      console.log('bets done')
-    }
+    console.log(this.state.status)
+    console.log(`${this.state.betCount} bets`)
   }
 
   getSeatStatus(status) {
-    if(status === 'bet received') {
+    if(status === 'bet-confirmed') {
       this.setState({
-        bets: this.state.bets.concat([status])
+        betCount: this.state.betCount += 1
       })
     }
+    if(this.state.betCount === this.state.seats.length) {
+      this.setState({
+        status: 'bets-complete'
+      })
+    }
+    return status
   }
 
   render () {
