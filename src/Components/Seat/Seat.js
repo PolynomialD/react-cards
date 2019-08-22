@@ -1,5 +1,6 @@
 import React from 'react'
-import { Col, Form, Button } from 'react-bootstrap'
+import Card from '../Cards/Cards.js'
+import { Col, Form } from 'react-bootstrap'
 
 class Seat extends React.Component {
   constructor () {
@@ -15,6 +16,7 @@ class Seat extends React.Component {
     this.receiveDeposit = this.receiveDeposit.bind(this)
     this.handleBetChange = this.handleBetChange.bind(this)
     this.handleChipDeposit = this.handleChipDeposit.bind(this)
+    this.buildCards = this.buildCards.bind(this)
   }
 
   receiveHand(hand) {
@@ -54,8 +56,16 @@ class Seat extends React.Component {
     }
   }
 
+  buildCards() {
+    const cards = this.props.cards.map((card) => {
+      return <Card card={card} />
+    })
+    return cards
+  }
+
   render() {
     return <Col md="2" className="Seat">
+      { this.buildCards() }
       { this.state.status === 'no-chips' ?
         <>
           Add Chips

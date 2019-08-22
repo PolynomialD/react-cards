@@ -13,7 +13,6 @@ class Player extends React.Component {
       seats: [],
       betCount: 0,
       status: null,
-      cards: []
     }
 
     this.confirmDeposit = this.confirmDeposit.bind(this)
@@ -86,6 +85,7 @@ class Player extends React.Component {
           number={seatNumber}
           sendStatus={this.getSeatStatus}
           playerStatus={this.state.status}
+          cards={this.props.cards}
         />]),
         status: 'betting'
       })
