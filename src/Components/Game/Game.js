@@ -17,19 +17,14 @@ class Game extends React.Component {
     this.setState({
       dealtCards: [card].concat(this.state.dealtCards)
     })
-    console.log(card)
     return card
-  }
-
-  giveCard() {
-   return this.state.dealtCards[0]
   }
 
   render() {
     return (
       <div className="game">
         <Deck dealCard={this.receiveCard} />
-        <Player receiveCard={this.giveCard} />
+        <Player cards={this.state.dealtCards} />
       </div>
     )
   }

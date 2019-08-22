@@ -3,7 +3,7 @@ import Seat from '../Seat/Seat.js'
 import { Row, Col, Container, Button, Form, Navbar, Image } from 'react-bootstrap'
 
 class Player extends React.Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       name: 'player1',
@@ -12,7 +12,8 @@ class Player extends React.Component {
       proposedDeposit: 50,
       seats: [],
       betCount: 0,
-      status: null
+      status: null,
+      cards: []
     }
 
     this.confirmDeposit = this.confirmDeposit.bind(this)
@@ -23,7 +24,6 @@ class Player extends React.Component {
     this.getChips = this.getChips.bind(this)
     this.setChips = this.setChips.bind(this)
     this.getSeatStatus = this.getSeatStatus.bind(this)
-    this.checkBetStatus = this.checkBetStatus.bind(this)
   }
 
   confirmBet () {
@@ -92,13 +92,8 @@ class Player extends React.Component {
     }
   }
 
-  checkBetStatus() {
-    console.log(this.state.status)
-    console.log(`${this.state.betCount} bets`)
-  }
-
   getSeatStatus(status) {
-    if(status === 'bet-confirmed') {
+    if(status === 'bet-received') {
       this.setState({
         betCount: this.state.betCount += 1
       })
@@ -115,15 +110,15 @@ class Player extends React.Component {
     return (
       <Container>
         <Row className="mt-5">
+          { this.state.status === 'bets-complete' ? 'ready' : 'not ready' }
+          { this.props.cards.length > 0 ? this.props.cards[0].icon : <></> }
           { this.state.seats }
         </Row>
         <Navbar fixed="bottom">
         <Container className="border border-primary rounded p-3 mt-5">
           <Row>
             <Col>
-            <Button variant="outline-success" onClick={this.props.receiveCard}>Get Card</Button>
               <Button variant="outline-success" onClick={this.addSeat}>Add Seat</Button>
-              <Button variant="outline-success" onClick={this.checkBetStatus}>Status</Button>
             </Col>
           </Row>
           <Row>

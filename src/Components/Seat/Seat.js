@@ -15,7 +15,6 @@ class Seat extends React.Component {
     this.receiveDeposit = this.receiveDeposit.bind(this)
     this.handleBetChange = this.handleBetChange.bind(this)
     this.handleChipDeposit = this.handleChipDeposit.bind(this)
-    this.confirmBet = this.confirmBet.bind(this)
   }
 
   receiveHand(hand) {
@@ -28,6 +27,7 @@ class Seat extends React.Component {
       status: 'bet-received',
       chips: this.state.chips - this.state.bet
     })
+    this.props.sendStatus('bet-received')
   }
 
   receiveDeposit(event) {
@@ -54,13 +54,6 @@ class Seat extends React.Component {
     }
   }
 
-  confirmBet() {
-    this.setState({
-      status: 'bet-confirmed'
-    })
-    this.props.sendStatus('bet-confirmed')
-  }
-
   render() {
     return <Col md="2" className="Seat">
       { this.state.status === 'no-chips' ?
@@ -79,16 +72,6 @@ class Seat extends React.Component {
           </Form> 
         : this.state.status === 'bet-received' ?
           <>
-            <Button variant="outline-success" onClick={this.confirmBet}>Confirm Bet</Button>
-            <h6>BET {this.state.bet}</h6>
-          </> 
-        : this.props.playerStatus === 'bets-complete' ?
-          <>
-          yoyoyo
-          </>
-        : this.state.status === 'bet-confirmed' ?
-          <>
-            Confirmed
             <h6>BET {this.state.bet}</h6>
           </>
         : <></>
