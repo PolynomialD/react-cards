@@ -1,4 +1,5 @@
 import React from 'react'
+import Card from '../Cards/Cards.js'
 import './Deck.css'
 
 class Deck extends React.Component {
@@ -20,14 +21,14 @@ class Deck extends React.Component {
     const values = [['2', 2],['3',3],['4', 4],['5', 5],['6', 6],['7', 7],['8', 8],['9', 9],['10', 10],['jack', 10],['queen', 10],['king', 10],['ace', 11]]
     const cards = suits.map((suit) => {
       return values.map((value) => {
-        return {
-          name: `${value[0]} of ${suit[0]}`,
-          suit: suit[0],
-          face: value[0],
-          value: value[1],
-          icon: suit[1],
-          image: require(`../../assets/images/cards/${value[0]}_of_${suit[0]}.png`)
-        }
+        return <Card
+          name = {`${value[0]} of ${suit[0]}`}
+          suit = {suit[0]}
+          face = {value[0]}
+          value = {value[1]}
+          icon = {suit[1]}
+          image = {require(`../../assets/images/cards/${value[0]}_of_${suit[0]}.png`)}
+        />
       })
     })
     return [].concat.apply([], cards)
@@ -56,12 +57,12 @@ class Deck extends React.Component {
   }
 
   render() {
-    const dealtCardSrc = (this.state.dealtCards.length === 0) ? this.state.cardBack : this.state.dealtCards[0].image
+    const dealtCardSrc = (this.state.dealtCards.length === 0) ? this.state.cardBack : this.state.dealtCards[0].props.image
     return <div>
             <button onClick={this.shuffle}>SHUFFLE</button>
             <button onClick={this.dealCard}>DEAL</button>
             <img className="Deck" src={this.state.image}></img>
-            <img className="Card" src={this.state.cards[0].image}></img>
+            <img className="Card" src={this.state.cards[0].props.image}></img>
             {this.state.cards[0].value}
             {this.state.cards[0].icon}
             <img className="Card" src={dealtCardSrc}></img>

@@ -3,8 +3,8 @@ import Seat from '../Seat/Seat.js'
 import { Row, Col, Container, Button, Form, Navbar, Image } from 'react-bootstrap'
 
 class Player extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       name: 'player1',
       nameSaved: false,
@@ -13,6 +13,7 @@ class Player extends React.Component {
       seats: [],
       betCount: 0,
       status: null,
+      cards: this.props.getCards
     }
 
     this.confirmDeposit = this.confirmDeposit.bind(this)
@@ -23,6 +24,7 @@ class Player extends React.Component {
     this.getChips = this.getChips.bind(this)
     this.setChips = this.setChips.bind(this)
     this.getSeatStatus = this.getSeatStatus.bind(this)
+    this.giveCards = this.giveCards.bind(this)
   }
 
   confirmBet () {
@@ -85,7 +87,7 @@ class Player extends React.Component {
           number={seatNumber}
           sendStatus={this.getSeatStatus}
           playerStatus={this.state.status}
-          cards={this.props.cards}
+          getCards={this.giveCards(seatNumber-1)}
         />]),
         status: 'betting'
       })
@@ -106,12 +108,15 @@ class Player extends React.Component {
     return status
   }
 
+  giveCards(seat) {
+    return this.state.cards[seat]
+  }
+
   render () {
     return (
       <Container>
-        <Row className="mt-5">
           { this.state.status === 'bets-complete' ? 'ready' : 'not ready' }
-          { this.props.cards.length > 0 ? this.props.cards[0].icon : <></> }
+        <Row className="mt-5">
           { this.state.seats }
         </Row>
         <Navbar fixed="bottom">

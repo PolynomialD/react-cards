@@ -1,14 +1,14 @@
 import React from 'react'
 
 class Card extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
     }
   }
 
   render() {
-    return <img height="50px" src={this.props.card.image}></img>
+    return <img height="50px" src={this.props.image}></img>
   }
 }
 
