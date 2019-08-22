@@ -121,6 +121,7 @@ class Player extends React.Component {
         <Container className="border border-primary rounded p-3 mt-5">
           <Row>
             <Col>
+            <Button variant="outline-success" onClick={this.props.receiveCard}>Get Card</Button>
               <Button variant="outline-success" onClick={this.addSeat}>Add Seat</Button>
               <Button variant="outline-success" onClick={this.checkBetStatus}>Status</Button>
             </Col>

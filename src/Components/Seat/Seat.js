@@ -15,7 +15,7 @@ class Seat extends React.Component {
     this.receiveDeposit = this.receiveDeposit.bind(this)
     this.handleBetChange = this.handleBetChange.bind(this)
     this.handleChipDeposit = this.handleChipDeposit.bind(this)
-    this.sendStatus = this.sendStatus.bind(this)
+    this.confirmBet = this.confirmBet.bind(this)
   }
 
   receiveHand(hand) {
@@ -54,7 +54,7 @@ class Seat extends React.Component {
     }
   }
 
-  sendStatus() {
+  confirmBet() {
     this.setState({
       status: 'bet-confirmed'
     })
@@ -79,7 +79,7 @@ class Seat extends React.Component {
           </Form> 
         : this.state.status === 'bet-received' ?
           <>
-            <Button variant="outline-success" onClick={this.sendStatus}>Confirm Bet</Button>
+            <Button variant="outline-success" onClick={this.confirmBet}>Confirm Bet</Button>
             <h6>BET {this.state.bet}</h6>
           </> 
         : this.props.playerStatus === 'bets-complete' ?

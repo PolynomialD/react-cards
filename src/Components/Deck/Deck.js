@@ -37,7 +37,7 @@ class Deck extends React.Component {
     this.setState({
       dealtCards: [this.state.cards[0]].concat(this.state.dealtCards)
     })
-    return this.state.cards.shift()
+    this.props.dealCard(this.state.cards.shift())
   }
 
   shuffle () {
