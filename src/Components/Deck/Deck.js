@@ -63,8 +63,8 @@ class Deck extends React.Component {
             <button onClick={this.dealCard}>DEAL</button>
             <img className="Deck" src={this.state.image}></img>
             <img className="Card" src={this.state.cards[0].props.image}></img>
-            {this.state.cards[0].value}
-            {this.state.cards[0].icon}
+            {this.state.cards[0].props.value}
+            {this.state.cards[0].props.icon}
             <img className="Card" src={dealtCardSrc}></img>
           </div>
   }

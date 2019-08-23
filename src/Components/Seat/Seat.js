@@ -9,7 +9,7 @@ class Seat extends React.Component {
       chips: 0,
       bet: 0,
       status: 'no-chips',
-      cards: this.props.getCards
+      cards: this.props.cards
     }
     this.receiveBet = this.receiveBet.bind(this)
     this.receiveDeposit = this.receiveDeposit.bind(this)

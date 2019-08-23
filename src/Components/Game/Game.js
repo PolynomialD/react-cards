@@ -9,12 +9,13 @@ class Game extends React.Component {
     this.state = {
       started: false,
       dealtCards: [[],[],[],[],[],[]],
-      currentSeat: 1
+      currentSeat: 1,
+      numberOfSeats: 0
     }
 
     this.receiveCard = this.receiveCard.bind(this)
     this.changeSeat = this.changeSeat.bind(this)
-    this.giveCards= this.giveCards.bind(this)
+    this.addSeatToCount = this.addSeatToCount.bind(this)
   }
 
   receiveCard(card) {
@@ -28,20 +29,26 @@ class Game extends React.Component {
 
   changeSeat() {
     this.setState({
-      currentSeat: this.state.currentSeat < 6 ? this.state.currentSeat += 1 : 1
+      currentSeat: this.state.currentSeat < this.state.numberOfSeats ? this.state.currentSeat += 1 : 1
     })
   }
 
-  giveCards() {
-    return this.state.dealtCards
+  addSeatToCount() {
+    this.setState({
+      numberOfSeats: this.state.numberOfSeats += 1
+    })
   }
 
   render() {
     return (
       <div className="game">
+        Seats: {this.state.numberOfSeats}
+        Current Seat: {this.state.currentSeat}
         <Deck dealCard={this.receiveCard} />
         <Button variant="outline-success" onClick={this.changeSeat}>Change Seat</Button>
-        <Player getCards={this.giveCards()} />
+        <Player cards={this.state.dealtCards}
+                addSeatToCount={this.addSeatToCount}
+        />
       </div>
     )
   }

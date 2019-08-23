@@ -13,7 +13,7 @@ class Player extends React.Component {
       seats: [],
       betCount: 0,
       status: null,
-      cards: this.props.getCards
+      cards: this.props.cards
     }
 
     this.confirmDeposit = this.confirmDeposit.bind(this)
@@ -81,16 +81,17 @@ class Player extends React.Component {
     const seatNumber = this.state.seats.length + 1
     if(seatNumber <= 6) {
       this.setState({
-        seats: this.state.seats.concat([<Seat
-          getter={this.getChips}
-          setter={this.setChips}
-          number={seatNumber}
-          sendStatus={this.getSeatStatus}
-          playerStatus={this.state.status}
-          getCards={this.giveCards(seatNumber-1)}
+        seats: this.state.seats.concat(
+        [<Seat getter={this.getChips}
+               setter={this.setChips}
+               number={seatNumber}
+               sendStatus={this.getSeatStatus}
+               playerStatus={this.state.status}
+               cards={this.giveCards(seatNumber-1)}
         />]),
         status: 'betting'
       })
+      this.props.addSeatToCount()
     }
   }
 
