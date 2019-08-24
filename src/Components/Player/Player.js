@@ -23,7 +23,7 @@ class Player extends React.Component {
     this.addSeat = this.addSeat.bind(this)
     this.getChips = this.getChips.bind(this)
     this.setChips = this.setChips.bind(this)
-    this.getSeatStatus = this.getSeatStatus.bind(this)
+    this.increaseBetCount = this.increaseBetCount.bind(this)
     this.giveCards = this.giveCards.bind(this)
   }
 
@@ -85,9 +85,10 @@ class Player extends React.Component {
         [<Seat getter={this.getChips}
                setter={this.setChips}
                number={seatNumber}
-               sendStatus={this.getSeatStatus}
+               sendStatus={this.increaseBetCount}
                playerStatus={this.state.status}
                cards={this.giveCards(seatNumber-1)}
+               key={seatNumber}
         />]),
         status: 'betting'
       })
@@ -95,18 +96,18 @@ class Player extends React.Component {
     }
   }
 
-  getSeatStatus(status) {
-    if(status === 'bet-received') {
-      this.setState({
-        betCount: this.state.betCount += 1
-      })
-    }
+  increaseBetCount() {
+    this.setState({
+      betCount: this.state.betCount + 1
+    })
+  }
+
+  setPlayerStatus() {
     if(this.state.betCount === this.state.seats.length) {
       this.setState({
         status: 'bets-complete'
       })
     }
-    return status
   }
 
   giveCards(seat) {
@@ -119,6 +120,7 @@ class Player extends React.Component {
           { this.state.status === 'bets-complete' ? 'ready' : 'not ready' }
         <Row className="mt-5">
           { this.state.seats }
+          { this.state.betCount }
         </Row>
         <Navbar fixed="bottom">
         <Container className="border border-primary rounded p-3 mt-5">

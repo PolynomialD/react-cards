@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Form } from 'react-bootstrap'
+import { Col, Form, Button } from 'react-bootstrap'
 
 class Seat extends React.Component {
   constructor (props) {
@@ -9,12 +9,13 @@ class Seat extends React.Component {
       chips: 0,
       bet: 0,
       status: 'no-chips',
-      cards: this.props.cards
+      cards: this.props.cards || []
     }
     this.receiveBet = this.receiveBet.bind(this)
     this.receiveDeposit = this.receiveDeposit.bind(this)
     this.handleBetChange = this.handleBetChange.bind(this)
     this.handleChipDeposit = this.handleChipDeposit.bind(this)
+    this.showCards = this.showCards.bind(this)
   }
 
   receiveBet(event) {
@@ -23,7 +24,7 @@ class Seat extends React.Component {
       status: 'bet-received',
       chips: this.state.chips - this.state.bet
     })
-    this.props.sendStatus('bet-received')
+    this.props.sendStatus()
   }
 
   receiveDeposit(event) {
@@ -50,9 +51,17 @@ class Seat extends React.Component {
     }
   }
 
+  showCards() {
+    this.setState({
+      cards: this.props.cards
+    })
+    console.log(this.state.cards)
+  }
+
   render() {
     return <Col md="2" className="Seat">
-      {this.state.cards}
+      <Button variant="outline-success" onClick={this.showCards}>Show Cards</Button>
+      { this.state.cards.length > 0 ? this.state.cards : <> </>}
       { this.state.status === 'no-chips' ?
         <>
           Add Chips

@@ -8,7 +8,7 @@ class Card extends React.Component {
   }
 
   render() {
-    return <img height="50px" src={this.props.image}></img>
+    return <img height="50px" src={this.props.image} alt=""></img>
   }
 }
 

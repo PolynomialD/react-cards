@@ -29,13 +29,13 @@ class Game extends React.Component {
 
   changeSeat() {
     this.setState({
-      currentSeat: this.state.currentSeat < this.state.numberOfSeats ? this.state.currentSeat += 1 : 1
+      currentSeat: this.state.currentSeat < this.state.numberOfSeats ? this.state.currentSeat + 1 : 1
     })
   }
 
   addSeatToCount() {
     this.setState({
-      numberOfSeats: this.state.numberOfSeats += 1
+      numberOfSeats: this.state.numberOfSeats + 1
     })
   }
 
