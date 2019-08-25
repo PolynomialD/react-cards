@@ -58,15 +58,13 @@ class Deck extends React.Component {
   }
 
   render() {
-    const dealtCardSrc = (this.state.dealtCards.length === 0) ? this.state.cardBack : this.state.dealtCards[0].props.image
     return <div>
             <button onClick={this.shuffle}>SHUFFLE</button>
-            <button onClick={this.dealCard}>DEAL</button>
-            <img className="Deck" src={this.state.image} alt =""></img>
-            <img className="Card" src={this.state.cards[0].props.image} alt=""></img>
+            <img className="Deck" type="button" src={this.state.image} alt="" onClick={this.dealCard} ></img>
+            { this.state.cards[0] }
             {this.state.cards[0].props.value}
             {this.state.cards[0].props.icon}
-            <img className="Card" src={dealtCardSrc} alt=""></img>
+            Dealt: { this.state.dealtCards }
           </div>
   }
 }
